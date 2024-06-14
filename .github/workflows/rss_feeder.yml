@@ -2,7 +2,7 @@ name: Run RSS Feeder
 
 on:
   schedule:
-    - cron: "*/90 * * * *"  # Runs every 90 minutes
+    - cron: "0 * * * *"  # Runs every hour
   workflow_dispatch:       # Allows manual triggering of the workflow
 
 jobs:
@@ -23,6 +23,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run RSS Feeder Script
+    - name: Run RSS Reader Script
       run: |
-        rss_reader.py
+        python rss_reader.py
