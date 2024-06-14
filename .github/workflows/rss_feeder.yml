@@ -59,10 +59,16 @@ jobs:
       run: |
         python parse_xml.py
 
-    - name: Commit and push changes from XML Parser
+    - name: Pull latest changes
       run: |
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
+        git pull origin main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Commit and push changes from XML Parser
+      run: |
         git add rss_feed.xlsx data_lake/parsed/
         git commit -m 'Update parsed data and RSS feed Excel file'
         git push
