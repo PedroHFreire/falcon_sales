@@ -75,6 +75,8 @@ jobs:
       run: |
         echo "Before running parser:"
         ls -R
+        ls -R data_lake
+        ls -R data_lake/parsed
 
     - name: Run XML Parser Script
       run: |
@@ -84,13 +86,15 @@ jobs:
       run: |
         echo "After running parser:"
         ls -R
+        ls -R data_lake
         ls -R data_lake/parsed
 
-    - name: Debug before commit and push
+    - name: Verify Git status before commit
       run: |
-        echo "Before committing and pushing changes:"
+        echo "Git status before commit:"
         git status
-        ls -R
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Commit and push changes from XML Parser
       run: |
@@ -100,8 +104,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Debug after commit and push
+    - name: Verify Git status after commit
       run: |
-        echo "After committing and pushing changes:"
+        echo "Git status after commit:"
         git status
         ls -R
+        ls -R data_lake
+        ls -R data_lake/parsed
