@@ -1,4 +1,4 @@
-name: Run RSS Feeder
+name: Run RSS Reader
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:       # Allows manual triggering of the workflow
 
 jobs:
-  run-rss-feeder:
+  run-rss-reader:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,3 +26,13 @@ jobs:
     - name: Run RSS Reader Script
       run: |
         python rss_reader.py
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add feed_logs.xlsx data_lake/
+        git commit -m 'Update feed logs and data lake files'
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
