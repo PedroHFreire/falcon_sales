@@ -86,6 +86,12 @@ jobs:
         ls -R
         ls -R data_lake/parsed
 
+    - name: Debug before commit and push
+      run: |
+        echo "Before committing and pushing changes:"
+        git status
+        ls -R
+
     - name: Commit and push changes from XML Parser
       run: |
         git add rss_feed.xlsx data_lake/parsed/
@@ -93,3 +99,9 @@ jobs:
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Debug after commit and push
+      run: |
+        echo "After committing and pushing changes:"
+        git status
+        ls -R
