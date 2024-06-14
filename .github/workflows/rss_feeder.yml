@@ -98,7 +98,7 @@ jobs:
 
     - name: Commit and push changes from XML Parser
       run: |
-        git add rss_feed.xlsx data_lake/parsed/
+        git add -A
         git commit -m 'Update parsed data and RSS feed Excel file'
         git push
       env:
