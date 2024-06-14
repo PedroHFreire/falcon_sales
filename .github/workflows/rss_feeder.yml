@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+        persist-credentials: true  # Keep GitHub token for further steps
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -44,6 +46,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+        persist-credentials: true  # Keep GitHub token for further steps
 
     - name: Set up Python
       uses: actions/setup-python@v2
