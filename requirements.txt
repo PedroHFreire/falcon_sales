@@ -1,5 +1,4 @@
 requests
 pandas
 datetime
-xml.etree.ElementTree
 pytz
