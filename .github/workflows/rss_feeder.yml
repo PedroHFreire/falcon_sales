@@ -63,9 +63,19 @@ jobs:
       run: |
         mkdir -p data_lake/parsed
 
+    - name: List files before running XML Parser Script
+      run: |
+        echo "Before running parser:"
+        ls -R
+
     - name: Run XML Parser Script
       run: |
         python parse_xml.py
+
+    - name: List files after running XML Parser Script
+      run: |
+        echo "After running parser:"
+        ls -R
 
     - name: Pull latest changes
       run: |
@@ -75,6 +85,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Debug before commit and push
+      run: |
+        echo "Before committing and pushing changes:"
+        ls -R
+        git status
+
     - name: Commit and push changes from XML Parser
       run: |
         git add rss_feed.xlsx data_lake/parsed/
@@ -82,3 +98,9 @@ jobs:
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Debug after commit and push
+      run: |
+        echo "After committing and pushing changes:"
+        ls -R
+        git status
