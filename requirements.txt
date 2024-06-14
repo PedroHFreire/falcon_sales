@@ -1,4 +1,7 @@
 requests
 pandas
+beautifulsoup4
+lxml
+openpyxl
 datetime
 pytz
