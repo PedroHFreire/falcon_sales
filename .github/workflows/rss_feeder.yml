@@ -1,4 +1,4 @@
-name: Run RSS Reader
+name: Run RSS Reader and Parser
 
 on:
   schedule:
@@ -27,12 +27,44 @@ jobs:
       run: |
         python rss_reader.py
 
-    - name: Commit and push changes
+    - name: Commit and push changes from RSS Reader
       run: |
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
         git add feed_logs.xlsx data_lake/
         git commit -m 'Update feed logs and data lake files'
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  run-xml-parser:
+    runs-on: ubuntu-latest
+    needs: run-rss-reader  # This job will only run if run-rss-reader completes successfully
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run XML Parser Script
+      run: |
+        python parse_xml.py
+
+    - name: Commit and push changes from XML Parser
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add rss_feed.xlsx data_lake/parsed/
+        git commit -m 'Update parsed data and RSS feed Excel file'
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
