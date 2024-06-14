@@ -41,7 +41,7 @@ jobs:
 
   run-xml-parser:
     runs-on: ubuntu-latest
-    needs: run-rss-reader  # This job will only run if run-rss-reader completes successfully
+    needs: run-rss-reader  # Ensure this job runs only after run-rss-reader completes
 
     steps:
     - name: Checkout repository
@@ -63,10 +63,6 @@ jobs:
       run: |
         mkdir -p data_lake/parsed
 
-    - name: Run XML Parser Script
-      run: |
-        python parse_xml.py
-
     - name: Pull latest changes
       run: |
         git config --global user.name 'github-actions'
@@ -75,10 +71,20 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: List files before running XML Parser Script
+      run: |
+        echo "Before running parser:"
+        ls -R
+
+    - name: Run XML Parser Script
+      run: |
+        python parse_xml.py
+
     - name: List files after running XML Parser Script
       run: |
         echo "After running parser:"
         ls -R
+        ls -R data_lake/parsed
 
     - name: Commit and push changes from XML Parser
       run: |
