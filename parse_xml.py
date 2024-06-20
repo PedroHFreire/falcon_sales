@@ -37,7 +37,7 @@ def parse_rss_feed(file_path):
             country = extract_field(description_html, "Country")
 
             data.append({
-                'run_id': os.path.splitext(os.path.basename(file_path))[0],
+                'run_id': int(os.path.splitext(os.path.basename(file_path))[0]),
                 'Title': title,
                 'Link': link,
                 'Description': description_text,
