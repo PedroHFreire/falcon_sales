@@ -45,6 +45,9 @@ def main():
     # Apply the function to the Budget column
     merged_data['Budget Numeric'] = merged_data['Budget'].apply(clean_budget)
     
+    # Create the 'us_only' column
+    merged_data['us_only'] = merged_data['rss_url_id'].apply(lambda x: 1 if x == 2 else 0)
+    
     # Filter the jobs based on the criteria
     filtered_data = merged_data[
         (merged_data['Hourly Range Mid'] >= 15) |
@@ -53,7 +56,7 @@ def main():
     ]
     
     # Save the transformed dataset
-    filtered_data.to_excel('filtered_jobs.xlsx', index=False)
+    filtered_data.to_excel('filtered_dataset.xlsx', index=False)
 
 if __name__ == '__main__':
     main()
