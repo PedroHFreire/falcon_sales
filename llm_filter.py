@@ -15,13 +15,13 @@ criteria = (
     "Respond with 'yes' or 'no' indicating if the job fits these criteria."
 )
 
-# Function to create the user prompt
-def create_user_prompt(description):
-    return f"Job Description: {description}\nResponse: "
+# Function to create the user prompt with title and description
+def create_user_prompt(title, description):
+    return f"Title: {title}\nDescription: {description}\nResponse: "
 
 # Function to filter jobs using GPT-3.5-turbo
-def filter_jobs(description, system_message):
-    user_prompt = create_user_prompt(description)
+def filter_jobs(title, description, system_message):
+    user_prompt = create_user_prompt(title, description)
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -35,7 +35,7 @@ def filter_jobs(description, system_message):
 jobs_df = pd.read_excel('filtered_jobs.xlsx')
 
 # Filter jobs using GPT-3.5-turbo
-jobs_df['initial_fit'] = jobs_df['description'].apply(lambda x: filter_jobs(x, criteria))
+jobs_df['initial_fit'] = jobs_df.apply(lambda x: filter_jobs(x['title'], x['description'], criteria), axis=1)
 
 # Keep only jobs that fit the initial criteria
 filtered_jobs_df = jobs_df[jobs_df['initial_fit'] == True]
