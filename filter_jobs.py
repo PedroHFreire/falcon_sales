@@ -56,7 +56,7 @@ def main():
     ]
     
     # Save the transformed dataset
-    filtered_data.to_excel('filtered_dataset.xlsx', index=False)
+    filtered_data.to_excel('filtered_jobs.xlsx', index=False)
 
 if __name__ == '__main__':
     main()
