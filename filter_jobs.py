@@ -51,8 +51,10 @@ def main():
     # Filter the jobs based on the criteria
     filtered_data = merged_data[
         (merged_data['Hourly Range Mid'] >= 15) |
-        (merged_data['Budget Numeric'] >= 200) |
-        (merged_data['Hourly Range'].isna() & merged_data['Budget'].isna())
+        (merged_data['Budget Numeric'] >= 200)
+        # TODO: Review approach for jobs without both hourly range and budget unavailable
+        # Related to GitHub issue #10
+        # | (merged_data['Hourly Range'].isna() & merged_data['Budget'].isna())
     ]
     
     # Save the transformed dataset
