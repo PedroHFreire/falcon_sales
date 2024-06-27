@@ -6,11 +6,10 @@ import os
 # Define the filtering criteria
 criteria = (
     "You are a job filter. Your task is to evaluate job descriptions based on the following criteria:\n"
-    "- Includes video editing tasks such as cutting footage, color correction, audio editing, animations (especially motion graphics), screenshare videos, or voice overs for faceless videos.\n"
-    "- Does not require the team to be physically present to film with the client or to film themselves presenting a product.\n"
+    "- Includes any video editing related tasks such as cutting footage, color correction, audio editing, animations (especially motion graphics), screenshare videos, or voice overs for faceless videos.\n"
+    "- Does not require the team to be physically present to film with the client or to film themselves presenting a product as a creator.\n"
     "- Does not require immediate turnaround (within 24/48 hours from job posting).\n"
-    "- Involves using video editing software, preferably Adobe Premiere Pro.\n"
-    "- The job description is in Portuguese or English.\n"
+    "- The job required languages are English or Portuguese.\n"
     "Respond with 'yes' or 'no' indicating if the job fits these criteria. If you're in doubt be overinclusive and say yes."
 )
 
