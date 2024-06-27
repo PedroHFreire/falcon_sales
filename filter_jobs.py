@@ -48,6 +48,11 @@ def main():
     # Create the 'us_only' column
     merged_data['us_only'] = merged_data['rss_url_id'].apply(lambda x: 1 if x == 2 else 0)
     
+    # Identify and remove non-US-only duplicates
+    duplicates = merged_data[merged_data.duplicated(subset='Link', keep=False)]
+    non_us_only_duplicates = duplicates[duplicates['us_only'] == 0]
+    merged_data = merged_data.drop(non_us_only_duplicates.index)
+    
     # Filter the jobs based on the criteria
     filtered_data = merged_data[
         (merged_data['Hourly Range Mid'] >= 15) |
